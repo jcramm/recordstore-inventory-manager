@@ -2,10 +2,10 @@ require 'securerandom'
 
 class Artist
 
-  attr_reader :name, :uuid
+  attr_reader :name, :id
 
   def initialize(params)
     @name = params[:name]
-    @uuid = params[:uuid] || SecureRandom.uuid
+    @id = params[:id] || SecureRandom.uuid
   end
 end

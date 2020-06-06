@@ -14,7 +14,7 @@ describe Artist do
     end
 
     it 'has a guid' do
-      uuid = @artist.uuid || ''
+      uuid = @artist.id || ''
       expect(uuid.match?(UUID_REGEX)).to be true
     end
   end
