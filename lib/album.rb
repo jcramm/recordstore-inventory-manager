@@ -1,14 +1,19 @@
 require 'securerandom'
+require 'model'
 
-class Album
+class Album < Model
 
   attr_reader :title, :id, :artist_id, :year, :format
 
   def initialize(params)
-    @title = params[:title]
-    @id = params[:id] || SecureRandom.uuid
-    @artist_id = params[:artist_id]
-    @year = params[:year]
-    @format = params[:format]
+    super(params)
+    @title = params['title']
+    @artist_id = params['artist_id']
+    @year = params['year']
+    @format = params['format']
+  end
+
+  def whitelist
+    %w[id title artist_id year format]
   end
 end

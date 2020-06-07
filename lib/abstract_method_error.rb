@@ -1,0 +1,1 @@
+class AbstractMethodError < StandardError; end

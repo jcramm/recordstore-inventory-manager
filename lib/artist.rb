@@ -1,11 +1,16 @@
-require 'securerandom'
+require 'model'
 
-class Artist
+class Artist < Model
 
-  attr_reader :name, :id
+  attr_reader :id
+  attr_accessor :name
 
   def initialize(params)
-    @name = params[:name]
-    @id = params[:id] || SecureRandom.uuid
+    super(params)
+    @name = params['name']
+  end
+
+  def whitelist
+    %w[ name id]
   end
 end
