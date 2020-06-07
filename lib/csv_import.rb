@@ -24,7 +24,7 @@ class Serializer
     when '.csv'
       CsvSerializer.new
     when '.pipe'
-      raise 'Invalid Format'
+      PipeSerializer.new
     else
       raise 'Invalid Format'
     end
@@ -39,10 +39,27 @@ class CsvSerializer
     objs = []
     CSV.parse(data, headers: HEADER) do |row|
       hsh = row.to_h
-      artist = Artist.new(name: hsh['artist_name'])
+      artist = Artist.new('name' => hsh['artist_name'])
       objs.push(artist)
       hsh['artist_id'] = artist.id
       objs.push(Album.new(hsh))
+    end
+    objs
+  end
+end
+
+class PipeSerializer
+
+  HEADER = %w[quantity format year artist_name title]
+
+  def serialize(data)
+    objs = []
+    CSV.parse(data, {headers: HEADER, :col_sep => "|"}) do |row|
+      hsh = row.to_h
+      artist = Artist.new('name' => hsh['artist_name'])
+      objs.push(artist)
+      hsh['artist_id'] = artist.id
+      (0..hsh['quantity'].to_i).to_a.each {|i| objs.push(Album.new(hsh))}
     end
     objs
   end
