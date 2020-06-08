@@ -1,4 +1,5 @@
 require './lib/album'
+require 'digest'
 require 'spec_utilities'
 require 'securerandom'
 
@@ -6,7 +7,7 @@ describe Album do
   context "#new" do
     before do
       @title = 'Ágætis byrjun'
-      @artist_id = "73175943-fdff-4a3d-a645-5b11f7edb670"
+      @artist_id = Digest::MD5.hexdigest('Sigur Rós')
       @year = 1999
       @format = 'tbd'
       @album = Album.new({
@@ -21,14 +22,9 @@ describe Album do
       expect(@album.title).to eql @title
     end
 
-    it 'has a guid' do
-      uuid = @album.id || ''
-      expect(uuid.match?(UUID_REGEX)).to be true
-    end
-
     it 'has an artist guid' do
       artist_id = @album.artist_id || ''
-      expect(artist_id.match?(UUID_REGEX)).to be true
+      expect(artist_id.match?(ID_REGEX)).to be true
     end
 
     it 'has an release year' do
@@ -40,10 +36,38 @@ describe Album do
     end
   end
 
+  context '#generate_id' do
+    before do
+      @title = 'Ágætis byrjun'
+      @artist_id = Digest::MD5.hexdigest('Sigur Rós')
+      @year = 1999
+      @format = 'tbd'
+      @album = Album.new({
+        'title'     => @title,
+        'artist_id' => @artist_id,
+        'year'      => @year,
+        'format'    => @format
+      })
+    end
+
+    it 'has a guid' do
+      id = @album.generate_id || ''
+      expect(id.match?(ID_REGEX)).to be true
+    end
+  end
+
   context '#save' do
     before do
       @title = 'Ágætis byrjun'
-      @album = Album.new('title' => @title)
+      @artist_id = Digest::MD5.hexdigest('Sigur Rós')
+      @year = 1999
+      @format = 'tbd'
+      @album = Album.new({
+        'title'     => @title,
+        'artist_id' => @artist_id,
+        'year'      => @year,
+        'format'    => @format
+      })
     end
 
     it 'can be saved to a json file' do

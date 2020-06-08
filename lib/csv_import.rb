@@ -9,7 +9,7 @@ class Import
     type = File.extname(file_path)
     data = File.open file_path
     objs = serialize(type, data)
-    objs.each {|o| o.save!}
+    objs.each {|o| o.save}
   end
 
   def self.serialize(type, data)
@@ -41,7 +41,7 @@ class CsvSerializer
       hsh = row.to_h
       artist = Artist.new('name' => hsh['artist_name'])
       objs.push(artist)
-      hsh['artist_id'] = artist.id
+      hsh['artist_id'] = artist.generate_id
       objs.push(Album.new(hsh))
     end
     objs
@@ -58,7 +58,7 @@ class PipeSerializer
       hsh = row.to_h
       artist = Artist.new('name' => hsh['artist_name'])
       objs.push(artist)
-      hsh['artist_id'] = artist.id
+      hsh['artist_id'] = artist.generate_id
       (0..hsh['quantity'].to_i).to_a.each {|i| objs.push(Album.new(hsh))}
     end
     objs

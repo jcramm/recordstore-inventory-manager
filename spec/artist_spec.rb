@@ -13,10 +13,17 @@ describe Artist do
     it 'has a name' do
       expect(@artist.name).to eql @name
     end
+  end
 
-    it 'has a guid' do
-      uuid = @artist.id || ''
-      expect(uuid.match?(UUID_REGEX)).to be true
+  context '#generate_id' do
+    before do
+      @name = 'Sigur Rós'
+      @artist = Artist.new('name' => @name)
+    end
+
+    it 'generates a valid hex id' do
+      id = @artist.generate_id || ''
+      expect(id.match?(ID_REGEX)).to be true
     end
   end
 

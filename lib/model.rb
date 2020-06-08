@@ -1,13 +1,14 @@
+require 'digest'
 require 'securerandom'
 require 'json'
-require 'abstract_method_error'
+require './lib/abstract_method_error'
 
 class Model
 
-  attr_reader :id, :updated_at
+  attr_reader :id
 
   def initialize(params)
-    @id = params['id'] || SecureRandom.uuid
+    @id = params['id']
   end
 
   def to_hash
@@ -45,14 +46,16 @@ class Model
 
   def save
     # fetch file, insert json at GUID
+    @id ||= generate_id
     data = self.class.get_data
-    data[@id] = to_hash
+    data[id] = to_hash
     save_file data
+    return self
   end
 
   def delete
     data = self.class.get_data
-    data.delete(@id)
+    data.delete(id)
     save_file data
   end
 
@@ -69,7 +72,15 @@ class Model
     end
   end
 
+  def generate_id
+    SecureRandom.hex
+  end
+
   def whitelist
     raise AbstractMethodError, 'Abstract method called'
+  end
+
+  def format_string(str)
+    str.split.map(&:capitalize).join(' ')
   end
 end
