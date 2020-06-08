@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require './lib/csv_import'
+require './lib/imports/import'
 
 file_path = ARGV.first
-Import.import(file_path)
+Imports::Import.import(file_path)

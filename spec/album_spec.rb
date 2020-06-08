@@ -1,16 +1,16 @@
-require './lib/album'
+require './lib/models/album'
 require 'digest'
-require 'spec_utilities'
+require 'utilities'
 require 'securerandom'
 
-describe Album do
+describe Models::Album do
   context "#new" do
     before do
       @title = 'Ágætis byrjun'
       @artist_id = Digest::MD5.hexdigest('Sigur Rós')
       @year = 1999
       @format = 'tbd'
-      @album = Album.new({
+      @album = Models::Album.new({
         'title'     => @title,
         'artist_id' => @artist_id,
         'year'      => @year,
@@ -42,7 +42,7 @@ describe Album do
       @artist_id = Digest::MD5.hexdigest('Sigur Rós')
       @year = 1999
       @format = 'tbd'
-      @album = Album.new({
+      @album = Models::Album.new({
         'title'     => @title,
         'artist_id' => @artist_id,
         'year'      => @year,
@@ -62,7 +62,7 @@ describe Album do
       @artist_id = Digest::MD5.hexdigest('Sigur Rós')
       @year = 1999
       @format = 'tbd'
-      @album = Album.new({
+      @album = Models::Album.new({
         'title'     => @title,
         'artist_id' => @artist_id,
         'year'      => @year,
@@ -72,13 +72,13 @@ describe Album do
 
     it 'can be saved to a json file' do
       @album.save
-      expect(Album.where(id: @album.id).first.id).to eq @album.id
+      expect(Models::Album.where(id: @album.id).first.id).to eq @album.id
     end
   end
 
   context '.all' do
-    it 'can be saved to a json file' do
-      expect(Album.all.first.title).to eq 'Ágætis byrjun'
+    it 'returns a list of albums' do
+      expect(Models::Album.all.first).to be_a Models::Album
     end
   end
 
@@ -88,7 +88,7 @@ describe Album do
     end
 
     it 'allows me to search by album name' do
-      expect(Album.where(title: @title).first.title).to eq @title
+      expect(Models::Album.where(title: @title).first.title).to eq @title
     end
   end
 
@@ -98,10 +98,10 @@ describe Album do
     end
 
     it 'allows me to delete a record' do
-      album = Album.where(title: @title).first
+      album = Models::Album.where(title: @title).first
       id = album.id
       album.delete
-      expect(Album.where(id: id).empty?).to be true
+      expect(Models::Album.where(id: id).empty?).to be true
     end
   end
 end
