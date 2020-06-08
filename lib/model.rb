@@ -31,7 +31,7 @@ class Model
   # TODO
   # - what if the file doesn't exist
   def self.get_data
-    file = File.open file_path
+    file = File.new(file_path, 'a+')
     data = JSON.load file
     file.close
     data || {}
