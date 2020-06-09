@@ -35,7 +35,7 @@ describe Models::Artist do
 
     it 'can be saved to a json file' do
       @artist.save
-      expect(Models::Artist.where(id: @artist.id).first.id).to eq @artist.id
+      expect(Models::Artist.find(@artist.id).id).to eq @artist.id
     end
   end
 
@@ -64,7 +64,7 @@ describe Models::Artist do
       artist = Models::Artist.where(name: @name).first
       id = artist.id
       artist.delete
-      expect(Models::Artist.where(id: id).empty?).to be true
+      expect(Models::Artist.find(id)).to be nil
     end
   end
 end

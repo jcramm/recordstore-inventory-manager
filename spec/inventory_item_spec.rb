@@ -15,7 +15,7 @@ describe Models::InventoryItem do
       'year'      => @year,
     })
     @album_id = @album.generate_id
-    @format = "CD"
+    @format = "cd"
     @quantity = 2
     @inventory_item = Models::InventoryItem.new({
       'format'   => @format,
@@ -48,9 +48,7 @@ describe Models::InventoryItem do
   context '#save' do
     it 'can be saved to a json file' do
       @inventory_item.save
-      # TODO
-      # Change this to find when its implemented
-      expect(Models::InventoryItem.where(id: @inventory_item.id).first.id).to eq @inventory_item.id
+      expect(Models::InventoryItem.find(@inventory_item.id).id).to eq @inventory_item.id
     end
   end
 
@@ -62,7 +60,7 @@ describe Models::InventoryItem do
 
   context '.where' do
     it 'allows me to search by inventory_item name' do
-      expect(Models::InventoryItem.where(id: @inventory_item.generate_id).first).to be_a Models::InventoryItem
+      expect(Models::InventoryItem.find(@inventory_item.generate_id)).to be_a Models::InventoryItem
     end
   end
 
@@ -104,9 +102,7 @@ describe Models::InventoryItem do
   context '#delete' do
     it 'allows me to delete a record' do
       @inventory_item.delete
-      # TODO
-      # Change this to a find when implemented
-      expect(Models::InventoryItem.where(id: @inventory_item.id).empty?).to be true
+      expect(Models::InventoryItem.find(@inventory_item.id)).to be nil
     end
   end
 end

@@ -21,10 +21,8 @@ module Imports
         album = Models::Album.new(hsh)
         objs.push(Models::Album.new(hsh))
         hsh['album_id'] = album.generate_id
-        # TODO
-        # replace this with a find
         inventory_item = Models::InventoryItem.new(hsh)
-        inventory_item = Models::InventoryItem.where(id: inventory_item.generate_id).first || inventory_item
+        inventory_item = Models::InventoryItem.find(inventory_item.generate_id) || inventory_item
         inventory_item.add_inventory
         objs.push(inventory_item)
       end

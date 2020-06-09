@@ -11,7 +11,7 @@ module Views
     end
 
     def render
-      artist = Models::Artist.where(id: @album.artist_id).first
+      artist = Models::Artist.find(@album.artist_id)
       inventory = ""
       inventory_items.each do |item|
         inventory += render_item(item)

@@ -12,11 +12,9 @@ module Views
         @item = item
       end
 
-      # TODO
-      # replace with find when its built
       def render
-        album = Models::Album.where(id: @item.album_id).first
-        artist = Models::Artist.where(id: album.artist_id).first
+        album = Models::Album.find(@item.album_id)
+        artist = Models::Artist.find(album.artist_id)
         "Removed 1 #{@item.format} of #{format_string(album.title)} by #{format_string(artist.name)} from the inventory"
       end
 

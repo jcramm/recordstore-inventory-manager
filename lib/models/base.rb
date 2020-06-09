@@ -71,6 +71,11 @@ module Models
       end
     end
 
+    def self.find(id)
+      data = get_data
+      data[id] ? self.new(data[id]) : nil
+    end
+
     def self.match(value, term, type='exact')
       value = value.to_s.downcase
       term = term.to_s.downcase

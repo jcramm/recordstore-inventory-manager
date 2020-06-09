@@ -5,7 +5,7 @@ require './lib/models/inventory_item'
 id = ARGV[0]
 # TODO
 # change this to 
-inventory = Models::InventoryItem.where(id: id).first
+inventory = Models::InventoryItem.find(id)
 inventory.sell_inventory
 inventory.save
 puts Views::InventoryItem::Sell.new(inventory).render

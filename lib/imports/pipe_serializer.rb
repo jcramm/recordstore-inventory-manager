@@ -19,10 +19,8 @@ module Imports
         album = Models::Album.new(hsh)
         objs.push(album)
         hsh['album_id'] = album.generate_id
-        # TODO
-        # replace this with a find
         inventory_item = Models::InventoryItem.new(hsh)
-        existing_record = Models::InventoryItem.where(id: inventory_item.generate_id).first
+        existing_record = Models::InventoryItem.find(inventory_item.generate_id)
         if existing_record
           existing_record.add_inventory(hsh['quantity'])
           inventory_item = existing_record
