@@ -64,10 +64,21 @@ module Models
       data.values.map { |record| self.new(record)}
     end
 
-    def self.where(params)
+    def self.where(params, type='exact')
       all.select do |record|
-        is_valid = params.map {|key, value| record.instance_variable_get('@'+ key.to_s) == value }
+        is_valid = params.map {|key, value| match(record.instance_variable_get('@'+ key.to_s), value, type) }
         is_valid.inject(:|)
+      end
+    end
+
+    def self.match(value, term, type='exact')
+      value = value.to_s.downcase
+      term = term.to_s.downcase
+      case type
+      when 'like'
+        value.include? term
+      else
+        value == term
       end
     end
 
@@ -79,8 +90,8 @@ module Models
       raise Errors::AbstractMethodError, 'Abstract method called'
     end
 
-    def self.scrub_string(str)
-      str.split.map(&:downcase).join(' ')
+    def self.format_string(str)
+      str.downcase
     end
   end
 end

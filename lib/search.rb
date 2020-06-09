@@ -22,7 +22,7 @@ class Search
     params.each do |key, value|
       klass = fetch_class(key)
       attribute = fetch_attribute(key)
-      klass.where(attribute => value).each do |result|
+      klass.where({attribute => value}, 'like').each do |result|
         if result.is_a?(Models::Artist)
           Models::Album.where(artist_id: result.id).each {|album| results[album.id] = album}
         else

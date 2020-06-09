@@ -14,7 +14,7 @@ module Imports
       objs = []
       CSV.parse(data, headers: HEADER) do |row|
         hsh = row.to_h
-        hsh.transform_values! {|v| Models::Base.scrub_string(v)}
+        hsh.transform_values! {|v| Models::Base.format_string(v)}
         artist = Models::Artist.new('name' => hsh['artist_name'])
         objs.push(artist)
         hsh['artist_id'] = artist.generate_id
