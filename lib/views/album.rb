@@ -33,7 +33,7 @@ module Views
     end
 
     def render_item(item)
-      "#{item.format}(#{item.quantity}): #{item.id}\n\t"
+      "#{format_string(item.format)}(#{item.quantity}): #{item.id}\n\t"
     end
   end
 end

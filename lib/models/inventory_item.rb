@@ -3,10 +3,13 @@ require './lib/models/base'
 module Models
   class InventoryItem < Base
 
+    VALID_FORMATS = %w[ cd vinyl tape ]
+
     attr_accessor :format, :album_id, :quantity
 
     def initialize(params)
       super(params)
+      raise ArgumentError.new("Invalid format #{params['format']}") unless VALID_FORMATS.include? params['format']
       @format = params['format']
       @album_id = params['album_id']
       @quantity = params['quantity'].to_i || 0

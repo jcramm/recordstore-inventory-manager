@@ -91,7 +91,7 @@ module Models
     end
 
     def self.format_string(str)
-      str.downcase
+      str.downcase.strip
     end
   end
 end
