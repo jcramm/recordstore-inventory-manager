@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './lib/models/inventory_item'
 require './lib/models/album'
 require 'utilities'
@@ -10,18 +12,18 @@ describe Models::InventoryItem do
     @artist_id = Digest::MD5.hexdigest('Sigur Rós')
     @year = 1999
     @album = Models::Album.new({
-      'title'     => @title,
-      'artist_id' => @artist_id,
-      'year'      => @year,
-    })
+                                 'title' => @title,
+                                 'artist_id' => @artist_id,
+                                 'year' => @year
+                               })
     @album_id = @album.generate_id
-    @format = "cd"
+    @format = 'cd'
     @quantity = 2
     @inventory_item = Models::InventoryItem.new({
-      'format'   => @format,
-      'album_id' => @album_id,
-      'quantity' => @quantity,
-    })
+                                                  'format' => @format,
+                                                  'album_id' => @album_id,
+                                                  'quantity' => @quantity
+                                                })
   end
 
   context '#new' do
@@ -95,7 +97,7 @@ describe Models::InventoryItem do
 
     it 'throws an error if the number to decrement is greater than the current stock' do
       n = 5
-      expect{@inventory_item.sell_inventory(n)}.to raise_error(ArgumentError)
+      expect { @inventory_item.sell_inventory(n) }.to raise_error(ArgumentError)
     end
   end
 

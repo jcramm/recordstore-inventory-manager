@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './lib/models/album'
 require 'digest'
 require 'utilities'
@@ -9,22 +11,21 @@ describe Models::Album do
     @artist_id = Digest::MD5.hexdigest('Sigur Rós')
     @year = 1999
     @album = Models::Album.new({
-      'title'     => @title,
-      'artist_id' => @artist_id,
-      'year'      => @year,
-    })
+                                 'title' => @title,
+                                 'artist_id' => @artist_id,
+                                 'year' => @year
+                               })
     @album_id = @album.generate_id
-    @format = "cd"
+    @format = 'cd'
     @quantity = 2
     @inventory_item = Models::InventoryItem.new({
-      'format'   => @format,
-      'album_id' => @album_id,
-      'quantity' => @quantity,
-    })
+                                                  'format' => @format,
+                                                  'album_id' => @album_id,
+                                                  'quantity' => @quantity
+                                                })
   end
 
-  context "#new" do
-
+  context '#new' do
     it 'has a title' do
       expect(@album.title).to eql @title
     end
@@ -40,7 +41,6 @@ describe Models::Album do
   end
 
   context '#generate_id' do
-
     it 'has a guid' do
       id = @album.generate_id || ''
       expect(id.match?(ID_REGEX)).to be true
@@ -48,7 +48,6 @@ describe Models::Album do
   end
 
   context '#save' do
-
     it 'can be saved to a json file' do
       @album.save
       expect(Models::Album.find(@album.id).id).to eq @album.id
@@ -72,14 +71,12 @@ describe Models::Album do
   end
 
   context '.where' do
-
     it 'allows me to search by album name' do
       expect(Models::Album.where(title: @title).first.title).to eq @title
     end
   end
 
   context '#delete' do
-
     it 'allows me to delete a record' do
       album = Models::Album.where(title: @title).first
       id = album.id

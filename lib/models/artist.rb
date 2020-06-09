@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './lib/models/base'
 
 module Models
@@ -11,12 +13,13 @@ module Models
     end
 
     def generate_id
-      raise ArgumentError.new('Name is required') unless @name
+      raise ArgumentError, 'Name is required' unless @name
+
       Digest::MD5.hexdigest(@name)
     end
 
     def whitelist
-      %w[name id]
+      %w[name id].freeze
     end
   end
 end

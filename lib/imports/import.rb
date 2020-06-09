@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './lib/imports/serializer'
 
 module Imports
@@ -8,7 +10,7 @@ module Imports
       type = File.extname(file_path)
       data = File.open file_path
       objs = serialize(type, data)
-      objs.each {|o| o.save}
+      objs.each(&:save)
     end
 
     def self.serialize(type, data)

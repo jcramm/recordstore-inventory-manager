@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './lib/imports/csv_serializer'
 require './lib/imports/pipe_serializer'
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './lib/models/album'
 require './lib/models/artist'
 require './lib/models/inventory_item'
@@ -8,7 +10,8 @@ module Views
     class Sell
 
       def initialize(item)
-        raise ArgumentError.new('item should be of type InventoryItem') unless item.is_a? Models::InventoryItem
+        raise ArgumentError, 'item should be of type InventoryItem' unless item.is_a? Models::InventoryItem
+
         @item = item
       end
 

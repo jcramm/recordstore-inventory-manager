@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './lib/models/album'
 require './lib/models/artist'
 require './lib/models/inventory_item'
@@ -6,13 +8,14 @@ module Views
   class Album
 
     def initialize(album)
-      raise ArgumentError.new('album should be of type Album') unless album.is_a? Models::Album
+      raise ArgumentError, 'album should be of type Album' unless album.is_a? Models::Album
+
       @album = album
     end
 
     def render
       artist = Models::Artist.find(@album.artist_id)
-      inventory = ""
+      inventory = ''
       inventory_items.each do |item|
         inventory += render_item(item)
       end

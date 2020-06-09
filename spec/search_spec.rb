@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './lib/search'
 require './lib/models/album'
 require './lib/models/artist'
