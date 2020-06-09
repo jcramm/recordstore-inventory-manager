@@ -11,13 +11,11 @@ module Models
       @title = params['title']
       @artist_id = params['artist_id']
       @year = params['year']
-      @format = params['format']
-      @quantity = params['quantity']
     end
 
     def generate_id
-      raise ArgumentError.new('Missing required fields') if !@title || !@format || !@artist_id
-      Digest::MD5.hexdigest(@title  + @format + @artist_id)
+      raise ArgumentError.new('Missing required fields') if !@title || !@artist_id
+      Digest::MD5.hexdigest(@title  + @artist_id)
     end
 
     def whitelist

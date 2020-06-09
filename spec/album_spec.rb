@@ -9,12 +9,10 @@ describe Models::Album do
       @title = 'Ágætis byrjun'
       @artist_id = Digest::MD5.hexdigest('Sigur Rós')
       @year = 1999
-      @format = 'tbd'
       @album = Models::Album.new({
         'title'     => @title,
         'artist_id' => @artist_id,
         'year'      => @year,
-        'format'    => @format
       })
     end
 
@@ -29,10 +27,6 @@ describe Models::Album do
 
     it 'has an release year' do
       expect(@album.year).to be @year
-    end
-
-    it 'has an format' do
-      expect(@album.format).to be @format
     end
   end
 

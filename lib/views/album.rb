@@ -1,4 +1,5 @@
 require './lib/models/album'
+require './lib/models/artist'
 
 module Views
   class Album
