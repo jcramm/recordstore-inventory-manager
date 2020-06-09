@@ -17,7 +17,11 @@ module Views
       def render
         album = Models::Album.where(id: @item.album_id).first
         artist = Models::Artist.where(id: album.artist_id).first
-        "Removed 1 #{@item.format} of #{album.title} by #{artist.name} from the inventory"
+        "Removed 1 #{@item.format} of #{format_string(album.title)} by #{format_string(artist.name)} from the inventory"
+      end
+
+      def format_string(str)
+        str.split.map(&:capitalize).join(' ')
       end
     end
   end

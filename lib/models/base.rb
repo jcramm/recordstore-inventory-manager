@@ -79,8 +79,8 @@ module Models
       raise Errors::AbstractMethodError, 'Abstract method called'
     end
 
-    def format_string(str)
-      str.split.map(&:capitalize).join(' ')
+    def self.scrub_string(str)
+      str.split.map(&:downcase).join(' ')
     end
   end
 end

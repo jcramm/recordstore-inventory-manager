@@ -12,11 +12,15 @@ module Views
     def render
       artist = Models::Artist.where(id: @album.artist_id).first
       <<-HEREDOC
-        Artist: #{artist.name}
-        Album: #{@album.title}
+        Artist: #{format_string(artist.name)}
+        Album: #{format_string(@album.title)}
         Released: #{@album.year}
 
       HEREDOC
+    end
+
+    def format_string(str)
+      str.split.map(&:capitalize).join(' ')
     end
   end
 end
