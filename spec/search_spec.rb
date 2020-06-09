@@ -16,7 +16,7 @@ describe Search do
     end
 
     it 'supports the term released' do
-      expect(Search.fetch_attribute('released')).to eq 'released'
+      expect(Search.fetch_attribute('released')).to eq 'year'
     end
   end
 

@@ -32,7 +32,7 @@ module Views
     end
 
     def inventory_items
-      Models::InventoryItem.where(album_id: @album.id)
+      Models::InventoryItem.where(album_id: @album.id).sort_by(&:format)
     end
 
     def render_item(item)

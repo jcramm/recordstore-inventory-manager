@@ -24,5 +24,9 @@ module Models
       %w[title id artist_id year format].freeze
     end
 
+    def artist_name
+      Artist.find(@artist_id)&.name
+    end
+
   end
 end
