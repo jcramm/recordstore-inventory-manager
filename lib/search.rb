@@ -50,6 +50,12 @@ class Search
     sort(results.values, key)
   end
 
+  # It was not clear to me how these were to be sorted.
+  # I thought at first that a multi tierd sorting was expected,
+  # I implemented it that way but after re-reading the spec it seemed that sorting ascending or descending
+  # depending on the field was the expected behavior
+  # See https://trello.com/c/uYovucEq/46-multi-tiered-sorting-is-not-needed-but-we-do-need-to-search-on-format
+
   def self.sort(items, key)
     asc = sort_ascending(key)
     criteria = fetch_sort_term(key)

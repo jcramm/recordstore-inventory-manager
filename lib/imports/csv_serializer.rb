@@ -15,6 +15,10 @@ module Imports
       objs = []
       CSV.parse(data, headers: HEADER) do |row|
         hsh = row.to_h
+        if !row_is_valid?(hsh)
+          puts "row #{row.inspect} rejected\n"
+          next
+        end
         hsh.transform_values! { |v| Models::Base.format_string(v) }
         artist = serialize_artist(hsh)
         album = serialize_album(hsh, artist)
@@ -22,6 +26,11 @@ module Imports
         objs.push(artist, album, inventory_item)
       end
       objs
+    end
+
+    def row_is_valid?(hsh)
+      required_fields = HEADER
+      required_fields.map { |k| !hsh[k].nil? }.reduce(:&)
     end
 
     def serialize_artist(hsh)

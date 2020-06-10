@@ -11,6 +11,7 @@ module Imports
       data = File.open file_path
       objs = serialize(type, data)
       objs.each(&:save)
+      puts "successfully imported #{objs.count} records (Albums, Artists, and Inventory are stored as seperate Records)\n"
     end
 
     def self.serialize(type, data)

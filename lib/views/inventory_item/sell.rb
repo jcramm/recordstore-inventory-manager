@@ -17,7 +17,7 @@ module Views
       def render
         album = Models::Album.find(@item.album_id)
         artist = Models::Artist.find(album.artist_id)
-        "Removed 1 #{@item.format} of #{format_string(album.title)} by #{format_string(artist.name)} from the inventory"
+        "Removed 1 #{@item.format} of #{format_string(album.title)} by #{format_string(artist.name)} from the inventory \n"
       end
 
       def format_string(str)
