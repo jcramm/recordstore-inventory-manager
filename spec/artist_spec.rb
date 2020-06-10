@@ -5,7 +5,6 @@ require 'utilities'
 require 'securerandom'
 
 describe Models::Artist do
-
   context '#new' do
     before do
       @name = 'Sigur Rós'

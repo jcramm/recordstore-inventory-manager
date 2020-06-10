@@ -5,7 +5,7 @@ require 'digest'
 
 module Models
   class Album < Base
-    attr_reader :title, :artist_id, :year, :format
+    attr_accessor :title, :artist_id, :year, :format
 
     def initialize(params)
       super(params)

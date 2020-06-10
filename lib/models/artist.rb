@@ -4,7 +4,6 @@ require './lib/models/base'
 
 module Models
   class Artist < Base
-
     attr_accessor :name
 
     def initialize(params)

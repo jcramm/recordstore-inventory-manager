@@ -15,21 +15,35 @@ module Imports
       CSV.parse(data, { headers: HEADER, col_sep: '|' }) do |row|
         hsh = row.to_h
         hsh.transform_values! { |v| Models::Base.format_string(v) }
-        artist = Models::Artist.new('name' => hsh['artist_name'])
-        objs.push(artist)
-        hsh['artist_id'] = artist.generate_id
-        album = Models::Album.new(hsh)
-        objs.push(album)
-        hsh['album_id'] = album.generate_id
-        inventory_item = Models::InventoryItem.new(hsh)
-        existing_record = Models::InventoryItem.find(inventory_item.generate_id)
-        if existing_record
-          existing_record.add_inventory(hsh['quantity'])
-          inventory_item = existing_record
-        end
-        objs.push(inventory_item)
+        artist = serialize_artist(hsh)
+        album = serialize_album(hsh, artist)
+        inventory_item = serialize_inventory_item(hsh, album)
+        objs.push(artist, album, inventory_item)
       end
+      puts objs.inspect
       objs
+    end
+
+    def serialize_artist(hsh)
+      artist = Models::Artist.new('name' => hsh['artist_name'])
+      artist
+    end
+
+    def serialize_album(hsh, artist)
+      album = Models::Album.new(hsh)
+      album.artist_id = artist.generate_id
+      album
+    end
+
+    def serialize_inventory_item(hsh, album)
+      inventory_item = Models::InventoryItem.new(hsh)
+      inventory_item.album_id = album.generate_id
+      existing_record = Models::InventoryItem.find(inventory_item.generate_id)
+      if existing_record
+        existing_record.add_inventory(hsh['quantity'])
+        inventory_item = existing_record
+      end
+      inventory_item
     end
   end
 end

@@ -7,7 +7,6 @@ require './lib/errors/abstract_method_error'
 
 module Models
   class Base
-
     attr_reader :id
 
     def initialize(params)
