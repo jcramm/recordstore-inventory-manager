@@ -46,7 +46,6 @@ module Models
     end
 
     def save
-      # fetch file, insert json at GUID
       @id ||= generate_id
       data = self.class.fetch_data
       data[id] = to_hash

@@ -7,7 +7,6 @@ require 'csv'
 
 module Imports
   class PipeSerializer
-
     HEADER = %w[quantity format year artist_name title].freeze
 
     def serialize(data)
@@ -20,7 +19,6 @@ module Imports
         inventory_item = serialize_inventory_item(hsh, album)
         objs.push(artist, album, inventory_item)
       end
-      puts objs.inspect
       objs
     end
 
