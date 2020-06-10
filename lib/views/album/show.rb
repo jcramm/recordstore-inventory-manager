@@ -14,6 +14,7 @@ module Views
 
       def render
         return nil unless @album.is_a? Models::Album
+
         artist = Models::Artist.find(@album.artist_id)
         inventory = ''
         inventory_items.each do |item|

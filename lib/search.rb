@@ -53,7 +53,7 @@ class Search
   def self.sort(items, key)
     asc = sort_ascending(key)
     criteria = fetch_sort_term(key)
-    items.sort { |i,j| asc * (i.send(criteria) <=> j.send(criteria))}
+    items.sort { |i, j| asc * (i.send(criteria) <=> j.send(criteria)) }
   end
 
   def self.fetch_sort_term(term)
