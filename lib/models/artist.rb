@@ -20,5 +20,9 @@ module Models
     def whitelist
       %w[name id].freeze
     end
+
+    def albums
+      Models::Album.where(artist_id: generate_id)
+    end
   end
 end

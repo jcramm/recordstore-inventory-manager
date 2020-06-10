@@ -4,7 +4,6 @@ require './lib/models/album'
 require './lib/models/artist'
 require './lib/models/inventory_item'
 
-
 module Views
   module InventoryItem
     class Sell

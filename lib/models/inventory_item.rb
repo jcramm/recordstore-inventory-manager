@@ -38,5 +38,9 @@ module Models
 
       @quantity -= num.to_i
     end
+
+    def album
+      Album.find(@album_id)
+    end
   end
 end
